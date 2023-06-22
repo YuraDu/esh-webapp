@@ -9,13 +9,26 @@ import {
   List,
   ListItem,
   ListItemText,
+  Button,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import Logo from "./../assets/logo.svg";
 
+import { useTranslation } from "react-i18next";
+
 const Navbar: React.FC = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
+
+  const { t, i18n } = useTranslation();
+
+  const handleLanguageChange = (e: any) => {
+    const language = e.target.value;
+
+    i18n.changeLanguage(language);
+  };
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -85,15 +98,28 @@ const Navbar: React.FC = () => {
         </Drawer>
         <List sx={{ display: { xs: "none", md: "flex" } }}>
           <ListItem button component={Link} to="/">
-            <ListItemText primary="Home" />
+            <ListItemText primary={t("home")} />
           </ListItem>
           <ListItem button component={Link} to="/blog">
-            <ListItemText primary="Blog" />
+            <ListItemText primary={t("blog")} />
           </ListItem>
           <ListItem button component={Link} to="/post">
-            <ListItemText primary="Post" />
+            <ListItemText primary={t("post")} />
           </ListItem>
         </List>
+        <Toolbar>
+          <div>
+            <Select
+              value={i18n.language}
+              onChange={handleLanguageChange}
+              style={{ color: "white" }}
+            >
+              <MenuItem value="eng">Eng</MenuItem>
+              <MenuItem value="heb">Heb</MenuItem>
+              <MenuItem value="rus">Rus</MenuItem>
+            </Select>
+          </div>
+        </Toolbar>
       </Toolbar>
     </AppBar>
   );
