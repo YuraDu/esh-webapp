@@ -9,39 +9,19 @@ import {
   List,
   ListItem,
   ListItemText,
-  Select,
-  MenuItem,
-  Tooltip,
-  Menu,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import LanguageIcon from "@mui/icons-material/Language";
 
-import Logo from "./../assets/logo.svg";
+import { Logo } from "./Logo";
 
 import { useTranslation } from "react-i18next";
+import { LanguageSelector } from "./LanguageSelector";
 
 const Navbar: React.FC = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { t, i18n } = useTranslation();
 
-  const handleLanguageIconClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleLanguageMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleLanguageChange = (language: string) => {
-    i18n.changeLanguage(language);
-    handleLanguageMenuClose();
-  };
-
   const listItemStyle = {
-    // width: "60px",
-    // height: "40px",
     display: "flex",
   };
 
@@ -66,18 +46,16 @@ const Navbar: React.FC = () => {
         color: "#2E2F38",
         width: "100%",
         padding: "0 4rem",
+        flexDirection: `${
+          i18n.resolvedLanguage === "heb" ? "row-reverse" : ""
+        }`,
       }}
       elevation={0}
       position="static"
     >
       <Toolbar>
-        <Typography variant="h6" component="div">
-          <img
-            src={Logo}
-            alt="Logo"
-            style={{ height: "30px", marginRight: "10px" }}
-          />
-        </Typography>
+        {i18n.resolvedLanguage !== "heb" && <Logo />}
+
         <IconButton
           size="large"
           edge="end"
@@ -116,26 +94,8 @@ const Navbar: React.FC = () => {
             <ListItemText primary={t("blog")} />
           </ListItem>
         </List>
-        <Toolbar sx={{ marginLeft: "auto" }}>
-          <Tooltip title="Select Language">
-            <IconButton
-              color="inherit"
-              onClick={handleLanguageIconClick}
-              sx={{ p: 1 }}
-            >
-              <LanguageIcon />
-            </IconButton>
-          </Tooltip>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleLanguageMenuClose}
-          >
-            <MenuItem onClick={() => handleLanguageChange("eng")}>Eng</MenuItem>
-            <MenuItem onClick={() => handleLanguageChange("heb")}>Heb</MenuItem>
-            <MenuItem onClick={() => handleLanguageChange("rus")}>Rus</MenuItem>
-          </Menu>
-        </Toolbar>
+        {i18n.resolvedLanguage === "heb" && <Logo />}
+        <LanguageSelector />
       </Toolbar>
     </AppBar>
   );
