@@ -3,6 +3,7 @@ import { Toolbar, IconButton, Tooltip, Menu, MenuItem } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
 
 import { useTranslation } from "react-i18next";
+
 export const LanguageSelector: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { i18n } = useTranslation();
@@ -22,6 +23,7 @@ export const LanguageSelector: React.FC = () => {
 
   return (
     <Toolbar sx={{ marginLeft: "auto" }}>
+      {/* Language selection button */}
       <Tooltip title="Select Language">
         <IconButton
           color="inherit"
@@ -31,11 +33,13 @@ export const LanguageSelector: React.FC = () => {
           <LanguageIcon />
         </IconButton>
       </Tooltip>
+      {/* Language selection menu */}
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleLanguageMenuClose}
       >
+        {/* Language options */}
         <MenuItem onClick={() => handleLanguageChange("eng")}>Eng</MenuItem>
         <MenuItem onClick={() => handleLanguageChange("heb")}>Heb</MenuItem>
         <MenuItem onClick={() => handleLanguageChange("rus")}>Rus</MenuItem>

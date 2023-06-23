@@ -1,4 +1,3 @@
-import React from "react";
 import { FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import { blogData } from "../config/data";
