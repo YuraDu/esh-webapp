@@ -1,36 +1,18 @@
-import React from "react";
+import { FC } from "react";
 import { useParams } from "react-router-dom";
+import { PostData, blogData } from "../config/data";
 
-interface IPostProps {
-  postId: number;
-}
+export const Post: FC = () => {
+  const { id } = useParams();
 
-const Post: React.FC<IPostProps> = ({ postId }) => {
-  // const history = useHistory();
-
-  const handleRemovePost = () => {
-    // Implement your logic to remove the post here
-    // You can use the postId to identify the post to remove
-    // After removing the post, navigate back to the blog page
-    // history.push("/blog");
-  };
-
-  const handleEditPost = () => {
-    // Implement your logic to edit the post here
-    // You can use the postId to identify the post to edit
-    // Redirect to the edit post page, passing the postId as a parameter
-    // history.push(`/edit-post/${postId}`);
-  };
+  const post = blogData.posts.find(post => {
+    return post.id === Number(id);
+  });
 
   return (
     <div>
-      <h2>Post {postId}</h2>
-      <p>This is the content of post {postId}.</p>
-
-      <button onClick={handleRemovePost}>Remove Post</button>
-      <button onClick={handleEditPost}>Edit Post</button>
+      <h2>Post {id}</h2>
+      <p>This is the content of post {id}.</p>
     </div>
   );
 };
-
-export default Post;

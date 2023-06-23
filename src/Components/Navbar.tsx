@@ -9,11 +9,13 @@ import {
   List,
   ListItem,
   ListItemText,
-  Button,
   Select,
   MenuItem,
+  Tooltip,
+  Menu,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import LanguageIcon from "@mui/icons-material/Language";
 
 import Logo from "./../assets/logo.svg";
 
@@ -21,13 +23,26 @@ import { useTranslation } from "react-i18next";
 
 const Navbar: React.FC = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
-
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { t, i18n } = useTranslation();
 
-  const handleLanguageChange = (e: any) => {
-    const language = e.target.value;
+  const handleLanguageIconClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
 
+  const handleLanguageMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLanguageChange = (language: string) => {
     i18n.changeLanguage(language);
+    handleLanguageMenuClose();
+  };
+
+  const listItemStyle = {
+    // width: "60px",
+    // height: "40px",
+    display: "flex",
   };
 
   const toggleDrawer =
@@ -46,12 +61,17 @@ const Navbar: React.FC = () => {
 
   return (
     <AppBar
-      sx={{ backgroundColor: "#EBC9E7", color: "#2E2F38", width: "100%" }}
+      sx={{
+        backgroundColor: "#ffffff",
+        color: "#2E2F38",
+        width: "100%",
+        padding: "0 4rem",
+      }}
       elevation={0}
       position="static"
     >
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" component="div">
           <img
             src={Logo}
             alt="Logo"
@@ -76,7 +96,7 @@ const Navbar: React.FC = () => {
               to="/"
               onClick={toggleDrawer(false)}
             >
-              <ListItemText primary="Home" />
+              <ListItemText primary={t("home")} />
             </ListItem>
             <ListItem
               button
@@ -84,15 +104,7 @@ const Navbar: React.FC = () => {
               to="/blog"
               onClick={toggleDrawer(false)}
             >
-              <ListItemText primary="Blog" />
-            </ListItem>
-            <ListItem
-              button
-              component={Link}
-              to="/post"
-              onClick={toggleDrawer(false)}
-            >
-              <ListItemText primary="Post" />
+              <ListItemText primary={t("blog")} />
             </ListItem>
           </List>
         </Drawer>
@@ -100,25 +112,29 @@ const Navbar: React.FC = () => {
           <ListItem button component={Link} to="/">
             <ListItemText primary={t("home")} />
           </ListItem>
-          <ListItem button component={Link} to="/blog">
+          <ListItem sx={listItemStyle} button component={Link} to="/blog">
             <ListItemText primary={t("blog")} />
           </ListItem>
-          <ListItem button component={Link} to="/post">
-            <ListItemText primary={t("post")} />
-          </ListItem>
         </List>
-        <Toolbar>
-          <div>
-            <Select
-              value={i18n.language}
-              onChange={handleLanguageChange}
-              style={{ color: "white" }}
+        <Toolbar sx={{ marginLeft: "auto" }}>
+          <Tooltip title="Select Language">
+            <IconButton
+              color="inherit"
+              onClick={handleLanguageIconClick}
+              sx={{ p: 1 }}
             >
-              <MenuItem value="eng">Eng</MenuItem>
-              <MenuItem value="heb">Heb</MenuItem>
-              <MenuItem value="rus">Rus</MenuItem>
-            </Select>
-          </div>
+              <LanguageIcon />
+            </IconButton>
+          </Tooltip>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleLanguageMenuClose}
+          >
+            <MenuItem onClick={() => handleLanguageChange("eng")}>Eng</MenuItem>
+            <MenuItem onClick={() => handleLanguageChange("heb")}>Heb</MenuItem>
+            <MenuItem onClick={() => handleLanguageChange("rus")}>Rus</MenuItem>
+          </Menu>
         </Toolbar>
       </Toolbar>
     </AppBar>
