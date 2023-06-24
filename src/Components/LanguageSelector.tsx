@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 
 export const LanguageSelector: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const handleLanguageIconClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -24,10 +24,11 @@ export const LanguageSelector: React.FC = () => {
   return (
     <Toolbar sx={{ marginLeft: "auto" }}>
       {/* Language selection button */}
-      <Tooltip title="Select Language">
+      <Tooltip title={t("selectLanguage")}>
         <IconButton
           color="inherit"
           onClick={handleLanguageIconClick}
+          aria-label={t("selectLanguage")}
           sx={{ p: 1 }}
         >
           <LanguageIcon />
@@ -38,11 +39,25 @@ export const LanguageSelector: React.FC = () => {
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleLanguageMenuClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
       >
         {/* Language options */}
-        <MenuItem onClick={() => handleLanguageChange("eng")}>Eng</MenuItem>
-        <MenuItem onClick={() => handleLanguageChange("heb")}>Heb</MenuItem>
-        <MenuItem onClick={() => handleLanguageChange("rus")}>Rus</MenuItem>
+        <MenuItem onClick={() => handleLanguageChange("eng")}>
+          {t("english")}
+        </MenuItem>
+        <MenuItem onClick={() => handleLanguageChange("heb")}>
+          {t("hebrew")}
+        </MenuItem>
+        <MenuItem onClick={() => handleLanguageChange("rus")}>
+          {t("russian")}
+        </MenuItem>
       </Menu>
     </Toolbar>
   );

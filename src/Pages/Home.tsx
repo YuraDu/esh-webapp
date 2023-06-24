@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import "./Home.css";
 
 const Home: React.FC = () => {
-  return <div>Home</div>;
+  const [isRendered, setIsRendered] = useState(false);
+
+  useEffect(() => {
+    setIsRendered(true);
+  }, []);
+
+  return (
+    <div className="home-container">
+      <h1 className={`animation-text ${isRendered ? "animate" : ""}`}>ESH.</h1>
+    </div>
+  );
 };
+
 export default Home;

@@ -7,31 +7,21 @@ const Footer: React.FC = () => {
   const { t, i18n } = useTranslation();
 
   return (
-    <div className="footer-container">
-      <footer className="footer">
-        <div className="footer-links">
-          <a
-            style={
-              i18n.resolvedLanguage === "heb" ? { alignSelf: "flex-end" } : {}
-            }
-            href="#"
-            className="footer-link"
-          >
-            <span className="footer-caption">{t("privacy")}</span>
-          </a>
-          <a
-            style={
-              i18n.resolvedLanguage === "heb" ? { alignSelf: "flex-end" } : {}
-            }
-            href="#"
-            className="footer-link"
-          >
-            <span className="footer-caption">{t("accessibility")}</span>
-          </a>
-          <span className="footer-caption">{t("footer-caption")}</span>
-        </div>
-      </footer>
-    </div>
+    <footer className="footer" lang={i18n.language}>
+      <div className="footer-links">
+        <a href="#privacy" className="footer-link" aria-label={t("privacy")}>
+          <span className="footer-caption">{t("privacy")}</span>
+        </a>
+        <a
+          href="#accessibility"
+          className="footer-link"
+          aria-label={t("accessibility")}
+        >
+          <span className="footer-caption">{t("accessibility")}</span>
+        </a>
+        <span className="footer-caption">{t("footer-caption")}</span>
+      </div>
+    </footer>
   );
 };
 
