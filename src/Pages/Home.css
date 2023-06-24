@@ -8,20 +8,28 @@
 .animation-text {
   font-size: 3rem;
   font-weight: bold;
-  animation: fade-in 1s ease-in;
+  position: relative;
+  cursor: pointer;
+}
+
+.hovered-text {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  font-size: 1rem;
+  width: 300px;
+}
+
+.hovered-text.show {
+  opacity: 1;
+  transform: translate(-50%, 10px);
 }
 
 .animate {
   animation: scale 2s ease-in-out infinite;
-}
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
 }
 
 @keyframes scale {
