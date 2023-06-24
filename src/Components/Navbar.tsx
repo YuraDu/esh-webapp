@@ -45,7 +45,10 @@ const Navbar: React.FC = () => {
         backgroundColor: "#ffffff",
         color: "#2E2F38",
         width: "100%",
-        padding: "0 4rem",
+        padding: {
+          xs: 0, // No padding on mobile viewports
+          md: "0 4rem", // Padding on tablet and desktop viewports
+        },
         flexDirection: `${
           i18n.resolvedLanguage === "heb" ? "row-reverse" : ""
         }`,

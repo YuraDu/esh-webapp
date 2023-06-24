@@ -10,7 +10,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="home-container">
-      <h1 className={`animation-text ${isRendered ? "animate" : ""}`}>ESH.</h1>
+      <h1 className={`animation-text ${isRendered ? "animate" : ""}`}>esh.</h1>
     </div>
   );
 };
